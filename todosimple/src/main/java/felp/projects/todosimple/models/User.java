@@ -1,5 +1,6 @@
 package felp.projects.todosimple.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -50,7 +51,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -74,6 +75,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
@@ -84,25 +86,15 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this)
+        if (this == obj)
             return true;
-
-        if (obj == null)
-            return false;
-
-        if (!(obj instanceof User))
+        if (obj == null || getClass() != obj.getClass())
             return false;
 
         User other = (User) obj;
-        if (this.id != null)
-            if (other.id != null)
-                return false;
-            else if (!this.id.equals(other.id))
-                return false;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.username, other.username)
-                && Objects.equals(this.password, other.password);
+        return Objects.equals(this.id, other.id);
     }
+
 
     @Override
     public int hashCode() {

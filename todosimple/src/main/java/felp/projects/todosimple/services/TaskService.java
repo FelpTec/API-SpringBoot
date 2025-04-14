@@ -3,12 +3,12 @@ package felp.projects.todosimple.services;
 import felp.projects.todosimple.models.Task;
 import felp.projects.todosimple.models.User;
 import felp.projects.todosimple.repositories.TaskRepository;
-import felp.projects.todosimple.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class TaskService {
@@ -22,6 +22,11 @@ public class TaskService {
         Optional<Task> task = this.taskRepository.findById(id);
         return task.orElseThrow(() -> new RuntimeException(
                 "Tarefa não encontrada! Id: " + id + ", Tipo: " + Task.class.getName()));
+    }
+
+    public List<Task> findAllByUserId(Integer userId) {
+        List<Task> tasks =  this.taskRepository.findByUser_Id(userId);
+        return tasks;
     }
 
     @Transactional

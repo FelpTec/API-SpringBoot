@@ -1,7 +1,6 @@
 package felp.projects.todosimple.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.sql.Update;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -51,7 +50,7 @@ public class User {
         this.password = password;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

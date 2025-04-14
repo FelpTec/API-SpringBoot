@@ -64,24 +64,13 @@ public class Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this)
+        if (this == obj)
             return true;
-
-        if (obj == null)
-            return false;
-
-        if (!(obj instanceof Task))
+        if (obj == null || getClass() != obj.getClass())
             return false;
 
         Task other = (Task) obj;
-        if (this.id != null)
-            if (other.id != null)
-                return false;
-            else if (!this.id.equals(other.id))
-                return false;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.user, other.user)
-                && Objects.equals(this.description, other.description);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

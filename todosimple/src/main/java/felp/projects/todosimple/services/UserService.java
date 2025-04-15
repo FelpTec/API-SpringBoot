@@ -2,6 +2,8 @@ package felp.projects.todosimple.services;
 
 import felp.projects.todosimple.models.User;
 import felp.projects.todosimple.repositories.UserRepository;
+import felp.projects.todosimple.services.exceptions.DataBindingViolationException;
+import felp.projects.todosimple.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class UserService {
 
     public User findById(Integer id) {
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
+        return user.orElseThrow(() -> new ObjectNotFoundException(
                 "Usuário não encontrado! Id: " + id + ", Usuário: " + User.class.getName()));
     }
 
@@ -39,7 +41,7 @@ public class UserService {
         try {
             this.userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
+            throw new DataBindingViolationException("Não é possível excluir pois há entidades relacionadas!");
         }
     }
 }
